@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="row">
-        <div v-for="prod in produtos" :key="prod.id" class="col-md-4">
+        <div v-for="prod in productsFiltered" :key="prod.id" class="col-md-4">
           <Card 
             :title="prod.title"
             :price="prod.price"
@@ -71,6 +71,13 @@ export default {
         },
 
       ]
+    }
+  },
+  computed: {
+    productsFiltered : function() {
+      return this.produtos.filter((event) =>
+        event.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1 
+      )
     }
   }
 }
