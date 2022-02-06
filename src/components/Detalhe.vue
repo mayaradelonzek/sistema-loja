@@ -38,7 +38,7 @@
           </h4>
         </div>
         <div class="col-md-12">
-          <button>Fazer Pedido</button>
+          <button @click="fazerPedido">Fazer Pedido</button>
         </div>
       </div>
     </div>
@@ -53,8 +53,11 @@ export default {
       finalQuantity: 1,
       preco: 100,
       total: 0,
-      produto: [],
-    };
+      produto: [],       
+    };    
+  },
+  props: {
+    fazerPedido: Function,    
   },
   methods: {
     getProdutoById: async function () {
@@ -84,7 +87,7 @@ export default {
 
       const total = this.preco * this.finalQuantity;
       this.total = total.toFixed(2);
-    },
+    },     
   },
   created: function () {
     this.getProdutoById();

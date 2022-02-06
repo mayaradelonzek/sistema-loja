@@ -2,7 +2,8 @@
   <div class="produto-detalhe">
     <Header />
     <main>
-      <Detalhe />
+      <Detalhe :fazerPedido="fazerPedido"/>
+      <NovoPedido v-if="!isHidden"/>
     </main>
     <Footer />
   </div>
@@ -11,6 +12,7 @@
 import Header from "../components/Header.vue";
 import Detalhe from "../components/Detalhe.vue";
 import Footer from "../components/Footer.vue";
+import NovoPedido from '../components/NovoPedido.vue';
 
 
 export default {
@@ -19,6 +21,17 @@ export default {
     Header,
     Detalhe,
     Footer,
+    NovoPedido,
+  },
+  data: function() {
+    return {
+      isHidden: true,
+    }
+  },
+  methods: {
+    fazerPedido: function () {
+      this.isHidden = false
+    }
   }
 }
 </script>
