@@ -3,13 +3,15 @@
     <img :src="img" alt="" />
     <h3>{{ title }}</h3>
     <p>Preço: R$ {{ price }}</p>
-    <button><router-link to="/produto-detalhe">Editar</router-link></button>
+    <button><router-link :to="{ name: 'produto-detalhe', params: { id: id } }">Editar</router-link>
+    </button>
   </div>
 </template>
 <script>
 export default {
   name: "Card",
   props: {
+    id: String,
     title: String,
     price: String,
     img: String,

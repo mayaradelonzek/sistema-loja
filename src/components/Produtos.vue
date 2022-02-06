@@ -10,8 +10,9 @@
         </div>
       </div>
       <div class="row">
-        <div v-for="prod in productsFiltered" :key="prod._id" class="col-md-4">
+        <div v-for="prod in produtos" :key="prod._id" class="col-md-4">
           <Card 
+            :id="prod._id"
             :title="prod.title"
             :price="prod.price"
             :img="prod.img"            
@@ -36,13 +37,12 @@ export default {
     }
   },
   methods: {
-    buscarProdutos: async function () {
-      //const id = this.$route.params.id
+    buscarProdutos: async function () {      
       const result = await fetch(
         "http://localhost:3000/produtos"
       )
         .then((res) => res.json())
-        .then((res) => res)
+        .then((res) => res)        
         .catch((error) => {
           return {
             error: true,
@@ -50,7 +50,8 @@ export default {
           };
         });
        if(!result.error) {
-        this.produtos = result        
+        this.produtos = result  
+        console.log(this.produtos)      
       } 
     }
   },

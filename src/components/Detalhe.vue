@@ -80,6 +80,9 @@ export default {
       const total = this.preco * this.finalQuantity;
       this.total = total.toFixed(2)
     }
+  },
+  created: function () {
+    this.getProdutoById();
   }
 }
 </script>
