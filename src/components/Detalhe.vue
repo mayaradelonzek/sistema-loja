@@ -52,6 +52,24 @@ export default {
     }
   },
   methods: {
+    getProdutoById: async function() {      
+      const id = this.$route.params.id
+      const result = await fetch('http://localhost:3000/produtos/'+id, {
+        method: 'GET'
+      })
+      .then( res => res.json())
+      .then(res => res)
+      .catch(error => {
+        return {
+          error: true,
+          message: error
+        }
+      });
+
+      if(!result.error) {
+        this.user = result;
+      }
+    },
     toCalculate : function(){
       this.finalQuantity = this.quantity;
 

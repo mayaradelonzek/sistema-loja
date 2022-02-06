@@ -3,7 +3,9 @@
     <img :src="img" alt="">
     <h3>{{title}}</h3>
     <p>Preço: R$ {{price}}</p>
-    <button><router-link to="/produto-detalhe" >Pedido</router-link></button>
+    <button>
+      <b-link class="link-button" :to="{name: 'produto-detalhe', params: {id: prod._id}}" >Editar</b-link>
+    </button>    
   </div>
 </template>
 <script>
@@ -12,7 +14,7 @@ export default {
   props : {
     title: String,
     price: String,
-    img : String
+    img : String        
   }
 }
 </script>

@@ -10,11 +10,11 @@
         </div>
       </div>
       <div class="row">
-        <div v-for="prod in productsFiltered" :key="prod.id" class="col-md-4">
+        <div v-for="prod in productsFiltered" :key="prod._id" class="col-md-4">
           <Card 
             :title="prod.title"
             :price="prod.price"
-            :img="prod.img"
+            :img="prod.img"            
           />
         </div>
       </div>
@@ -31,46 +31,27 @@ export default {
   },
   data : function(){
     return {
-      search : "",
-      produtos : [
-        {
-          id : 1,
-          title : "Red Dead Redemption II",
-          price : "100,00",
-          img : require('../assets/red-read.jpg'),
-        },
-        {
-          id: 2,
-          title : "Dshonored 2",
-          price : "89,90,",
-          img : require('../assets/dishonored.jpg'),
-        },
-        {
-          id : 3,
-          title : "Assassin's Creed Odyssey",
-          price : "129.90",
-          img : require('../assets/ACOdyssey.jpg'),
-        },
-        {
-          id : 4,
-          title : "Red Dead Redemption II",
-          price : "100,00",
-          img : require('../assets/red-read.jpg'),
-        },
-        {
-          id: 5,
-          title : "Dshonored 2",
-          price : "89,90,",
-          img : require('../assets/dishonored.jpg'),
-        },
-        {
-          id : 6,
-          title : "Assassin's Creed Odyssey",
-          price : "129,90",
-          img : require('../assets/ACOdyssey.jpg'),
-        },
-
-      ]
+      search : "",      
+      produtos : []
+    }
+  },
+  methods: {
+    buscarProdutos: async function () {
+      //const id = this.$route.params.id
+      const result = await fetch(
+        "http://localhost:3000/produtos"
+      )
+        .then((res) => res.json())
+        .then((res) => res)
+        .catch((error) => {
+          return {
+            error: true,
+            message: error,
+          };
+        });
+       if(!result.error) {
+        this.produtos = result        
+      } 
     }
   },
   computed: {
@@ -79,6 +60,9 @@ export default {
         event.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1 
       )
     }
+  },
+  created: function() {
+    this.buscarProdutos();
   }
 }
 </script>
