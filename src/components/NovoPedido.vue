@@ -9,7 +9,7 @@
             <b-input-group-prepend>
               <span class="input-group-text"> CPF Cliente:</span>
             </b-input-group-prepend>
-            <b-input v-model="valorCampoCpf" @change="onChange()" placeholder="Informe o cpf do cliente..." />
+            <b-input v-model="valorCampoCpf" placeholder="Informe o cpf do cliente..." />
             <b-input-group-append>
               <b-button @click="filtrarClientePorCpf" variant="danger" class="text-warning">
                 <strong>Buscar</strong>
@@ -47,8 +47,7 @@ export default {
     };
   },
   methods: {
-    getClienteById: async function () {  
-			// const cpf = this.$route.params.cpf    
+    getClienteById: async function () { 
       const result = await fetch("http://localhost:3000/clientes/busca/" + this.valorCampoCpf, {
         method: "GET",
       })
@@ -63,15 +62,12 @@ export default {
 
       if (!result.error) {
         this.cliente = result;
-				console.log("cliente" + this.cliente)
+				console.log(this.cliente)
       }
     },
 		filtrarClientePorCpf: function () {
 			this.getClienteById();
 		},
-    onChange: function () {
-      console.log(this.valorCampoCpf)
-    }
   },  
 };
 </script>

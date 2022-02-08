@@ -13,7 +13,7 @@
         <div class="col-md-3">
           <div class="detalhe__box-price">
             <p>Quantidade</p>
-            <input @input="toCalculate" type="number" v-model="quantity" />
+            <input :min='1' @input="toCalculate" type="number" v-model="quantity" />
           </div>
         </div>
         <div class="col-md-12">
@@ -33,8 +33,8 @@
             leap into electronic typesetting, remaining essentially unchanged
           </p>
           <h4>
-            Total : {{ finalQuantity }} * {{produto.price}} =
-            {{ total.toString().replace(".", ",") }}
+            Total : {{ quantity }} * {{produto.price}} =
+            {{ total }}
           </h4>
         </div>
         <div class="col-md-12">
@@ -50,9 +50,7 @@ export default {
   data: function () {
     return {
       quantity: 1,
-      finalQuantity: 1,
-      preco: 100,
-      total: 0,
+      total: '',
       produto: [],       
     };    
   },
@@ -76,18 +74,15 @@ export default {
 
       if (!result.error) {
         this.produto = result;
+        this.toCalculate();
       }
     },
     toCalculate: function () {
-      this.finalQuantity = this.quantity;
-
-      if (this.quantity === "") {
-        this.finalQuantity = 1;
-      }
-
-      const total = this.preco * this.finalQuantity;
-      this.total = total.toFixed(2);
-    },     
+      const quantidadeNum = parseFloat(this.quantity)
+      const precoNum = parseFloat(this.produto.price.replace(',', '.'))
+      this.total = precoNum * quantidadeNum;
+      this.total = this.total.toFixed(2).toString().replace('.', ',')
+    },
   },
   created: function () {
     this.getProdutoById();
