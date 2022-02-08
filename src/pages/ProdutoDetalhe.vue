@@ -20,8 +20,8 @@ export default {
   components : {
     Header,
     Detalhe,
-    Footer,
     NovoPedido,
+    Footer,
   },
   data: function() {
     return {

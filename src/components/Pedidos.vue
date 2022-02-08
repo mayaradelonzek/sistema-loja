@@ -1,45 +1,42 @@
 <template>
-  <section class="produtos">
+  <section class="pedidos">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <h2>Produtos</h2>
-        </div>
-        <div class="col-md-6">
-          <input type="text" placeholder="Pesquisar.." v-model="search" />
-        </div>
+          <h4 class="mt-5">Todos os pedidos</h4>
+        </div>        
       </div>
       <div class="row">
-        <div v-for="prod in produtos" :key="prod._id" class="col-md-4">
-          <Card 
-            :id="prod._id"
-            :title="prod.title"
-            :price="prod.price"
-            :img="prod.img"            
+        <div v-for="pedido in pedidos" :key="pedido._id" class="col-md-4">
+          <PedidoCard 
+            :codigo="pedido.produtoId"
+            :cpf="pedido.clienteCPF"
+            :valorUnitario="pedido.valorUnitario"
+            :valorTotal="pedido.ValorTotal"   
+            :quantidade="pedido.quantidade"         
           />
         </div>
-      </div>      
+      </div>
     </div>
   </section>
 </template>
 <script>
-import Card from "./Card.vue";
+import PedidoCard from "./PedidoCard.vue";
 
 export default {
-  name : "Produtos",
+  name : "Pedidos",
   components : {
-    Card
+    PedidoCard
   },
   data : function(){
-    return {
-      search : "",      
-      produtos : []
+    return {          
+      pedidos : []
     }
   },
   methods: {
-    buscarProdutos: async function () {      
+    buscarPedidos: async function () {      
       const result = await fetch(
-        "http://localhost:3000/produtos"
+        "http://localhost:3000/pedidos"
       )
         .then((res) => res.json())
         .then((res) => res)        
@@ -50,20 +47,13 @@ export default {
           };
         });
        if(!result.error) {
-        this.produtos = result  
-        console.log(this.produtos)      
+        this.pedidos = result  
+        console.log(this.pedidos)       
       } 
     }
-  },
-  computed: {
-    productsFiltered : function() {
-      return this.produtos.filter((event) =>
-        event.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1 
-      )
-    }
-  },
+  }, 
   created: function() {
-    this.buscarProdutos();
+    this.buscarPedidos();
   }
 }
 </script>
