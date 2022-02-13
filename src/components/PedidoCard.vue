@@ -2,7 +2,7 @@
   <div class="pedido-card">
     <b-row>
       <b-col>
-        <b-card style="max-width: 20rem;">
+        <b-card style="max-width: 20rem">
           <p>Código: {{ codigo }}</p>
           <p>CPF Cliente: {{ cpf }}</p>
           <p>Valor Unitário: {{ valorUnitario }}</p>
@@ -21,7 +21,7 @@ export default {
     cpf: String,
     valorUnitario: String,
     valorTotal: String,
-    quantidade: String,
+    quantidade: String,    
   },
 };
 </script>
@@ -66,5 +66,17 @@ export default {
 .card button a {
   color: inherit;
   text-decoration: none;
+}
+
+.salvar-button {
+  width: 170px;
+  height: 40px;
+  border-radius: 6px;
+  background-color: #ae382b;
+  color: #f5a022;
+  border: none;
+  font-weight: bold;
+  display: block;
+  margin: 30px auto;
 }
 </style>

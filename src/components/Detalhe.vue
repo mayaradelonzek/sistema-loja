@@ -51,7 +51,7 @@ export default {
     return {
       quantity: 1,
       total: '',
-      produto: [],       
+      produto: [],             
     };    
   },
   props: {
@@ -76,7 +76,7 @@ export default {
         this.produto = result;
         this.toCalculate();
       }
-    },
+    },    
     toCalculate: function () {
       const quantidadeNum = parseFloat(this.quantity)
       const precoNum = parseFloat(this.produto.price.replace(',', '.'))
