@@ -12,8 +12,8 @@
         <div class="col-md-6 header__right">
           <nav class="menu">
             <ul>
-              <li>Clientes</li>
-              <li>Pedidos</li>
+              <li>Clientes  </li>
+              <li><a href="/pedidos">Pedidos</a></li>
             </ul>
           </nav>
         </div>
@@ -70,12 +70,18 @@ export default {
   cursor: pointer;
 }
 
-.menu ul li:not(:last-child):after {
+/* .menu ul li:not(:last-child):after {
   content: "";
   display: inline-block;
   width: 1px;
   background-color: #e2e2e2;
   height: 10px;
   margin-left: 10px;
+} */
+
+.header a, 
+.header a:hover  {
+  text-decoration: none;
+  color: #e2e2e2;  
 }
 </style>

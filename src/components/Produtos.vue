@@ -50,8 +50,7 @@ export default {
           };
         });
        if(!result.error) {
-        this.produtos = result  
-        console.log(this.produtos)      
+        this.produtos = result
       } 
     }
   },

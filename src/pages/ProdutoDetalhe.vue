@@ -49,22 +49,7 @@ export default {
   methods: {
     fazerPedido: function () {
       this.isHidden = !this.isHidden;
-    },
-    // buscarPedidos: async function () {
-    //   const result = await fetch("http://localhost:3000/pedidos")
-    //     .then((res) => res.json())
-    //     .then((res) => res)
-    //     .catch((error) => {
-    //       return {
-    //         error: true,
-    //         message: error,
-    //       };
-    //     });
-    //   if (!result.error) {
-    //     // this.pedidos = result;
-    //     // console.log(this.pedidos);
-    //   }
-    // },
+    },    
     criarPedido: async function () {
       const newPedido = {
         produtoId: this.$route.params.id,
