@@ -6,11 +6,18 @@
         :fazerPedido="fazerPedido"
         :setValoresSelecionados="setValoresSelecionados"
       />
-      <NovoPedido
-        :setCpfSelecionado="setCpfSelecionado"
-        v-if="!isHidden"
-        :isSubmit="isSubmit"
-      />
+      <NovoPedido :setCpfSelecionado="setCpfSelecionado" v-if="!isHidden" />
+      <div class="container">
+        <div v-if="!isHidden" class="row">
+          <div class="col-md-12">
+            <hr />
+            <div class="col-md-12">
+              <button class="salvar-button" @click="isSubmit">Salvar</button>
+            </div>
+          </div>
+        </div>
+        <p>{{message}}</p>
+      </div>
     </main>
     <Footer />
   </div>
@@ -36,6 +43,7 @@ export default {
       valorUnitario: "",
       valorTotal: "",
       quantidade: "",
+      message: ""
     };
   },
   methods: {
@@ -85,18 +93,19 @@ export default {
 
       if (!result.error) {
         this.message = "Pedido cadastrado com sucesso!";
+        this.isHidden = !this.isHidden
       }
     },
     isSubmit: function () {
-      this.criarPedido();      
+      this.criarPedido();
     },
     setCpfSelecionado: function (cpfSelecionado) {
-      this.cpfSelecionado = cpfSelecionado;      
+      this.cpfSelecionado = cpfSelecionado;
     },
-    setValoresSelecionados: function (valorUnitario, valorTotal, quantidade) {      this.valorUnitario = valorUnitario;
+    setValoresSelecionados: function (valorUnitario, valorTotal, quantidade) {
+      this.valorUnitario = valorUnitario;
       this.valorTotal = valorTotal;
       this.quantidade = quantidade;
-
     },
   },
 };

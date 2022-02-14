@@ -26,15 +26,7 @@
             <p>Data de Nascimento: {{ cliente.dataNascimento }}</p>
           </div>
         </b-col>
-      </b-row>
-      <div class="row">
-        <div class="col-md-12">
-          <hr />
-          <div class="col-md-12">
-            <button class="salvar-button" @click="isSubmit">Salvar</button>
-          </div>
-        </div>
-      </div>
+      </b-row>      
     </div>
   </div>
 </template>
@@ -48,8 +40,7 @@ export default {
       cliente: []
     };
   },
-  props: {    
-    isSubmit: Function,    
+  props: {          
     setCpfSelecionado: Function
   },
   methods: {
