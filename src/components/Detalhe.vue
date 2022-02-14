@@ -56,6 +56,7 @@ export default {
   },
   props: {
     fazerPedido: Function,    
+    setValoresSelecionados: Function
   },
   methods: {
     getProdutoById: async function () {
@@ -82,11 +83,13 @@ export default {
       const precoNum = parseFloat(this.produto.price.replace(',', '.'))
       this.total = precoNum * quantidadeNum;
       this.total = this.total.toFixed(2).toString().replace('.', ',')
+
+      this.setValoresSelecionados(this.produto.price, this.total, quantidadeNum);      
     },
   },
-  created: function () {
+  created: function() {
     this.getProdutoById();
-  },
+  },  
 };
 </script>
 <style>

@@ -14,16 +14,16 @@
               placeholder="Informe o cpf do cliente..."
             />
             <b-input-group-append>
-              <b-button @click="getClienteByCpf(valorCampoCpf)" variant="danger" class="text-warning">
+              <b-button @click="getClienteByCpf" variant="danger" class="text-warning">
                 <strong>Buscar</strong>
               </b-button>
             </b-input-group-append>
           </b-input-group>
 
           <div>
-            <p>Nome Completo: {{ nome }} {{ sobrenome }}</p>
-            <p>CPF: {{ cpf }}</p>
-            <p>Data de Nascimento: {{ dataNascimento }}</p>
+            <p>Nome Completo: {{ cliente.nome }} {{ cliente.sobrenome }}</p>
+            <p>CPF: {{ cliente.CPF }}</p>
+            <p>Data de Nascimento: {{ cliente.dataNascimento }}</p>
           </div>
         </b-col>
       </b-row>
@@ -44,19 +44,37 @@ export default {
   name: "NovoPedido",
   data: function () {
     return {
-      valorCampoCpf: ""
+      valorCampoCpf: "",
+      cliente: []
     };
   },
-  props: {
-    nome: String,
-    sobrenome: String,
-    cpf: String,
-    dataNascimento: String,
-    getClienteByCpf: Function,
-    isSubmit: Function,
-    
+  props: {    
+    isSubmit: Function,    
+    setCpfSelecionado: Function
   },
-  methods: {},
+  methods: {
+    getClienteByCpf: async function () {
+      const result = await fetch(
+        "http://localhost:3000/clientes/busca/" + this.valorCampoCpf,
+        {
+          method: "GET",
+        }
+      )
+        .then((res) => res.json())
+        .then((res) => res)
+        .catch((error) => {
+          return {
+            error: true,
+            message: error,
+          };
+        });
+
+      if (!result.error) {
+        this.cliente = result;
+        this.setCpfSelecionado(this.cliente.CPF)        
+      }
+    },       
+  },
 };
 </script>
 

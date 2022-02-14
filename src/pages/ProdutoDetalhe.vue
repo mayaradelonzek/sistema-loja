@@ -2,13 +2,12 @@
   <div class="produto-detalhe">
     <Header />
     <main>
-      <Detalhe :fazerPedido="fazerPedido" />
+      <Detalhe
+        :fazerPedido="fazerPedido"
+        :setValoresSelecionados="setValoresSelecionados"
+      />
       <NovoPedido
-        :nome="cliente.nome"
-        :sobrenome="cliente.sobrenome"
-        :cpf="cliente.CPF"
-        :dataNascimento="cliente.dataNascimento"   
-        :getClienteByCpf="getClienteByCpf"     
+        :setCpfSelecionado="setCpfSelecionado"
         v-if="!isHidden"
         :isSubmit="isSubmit"
       />
@@ -33,56 +32,38 @@ export default {
   data: function () {
     return {
       isHidden: true,
-      cliente: [],     
+      cpfSelecionado: "",
+      valorUnitario: "",
+      valorTotal: "",
+      quantidade: "",
     };
   },
   methods: {
     fazerPedido: function () {
       this.isHidden = false;
     },
-    getClienteByCpf: async function (valorCampoCpf) {
-      const result = await fetch(
-        "http://localhost:3000/clientes/busca/" + valorCampoCpf,
-        {
-          method: "GET",
-        }
-      )
-        .then((res) => res.json())
-        .then((res) => res)
-        .catch((error) => {
-          return {
-            error: true,
-            message: error,
-          };
-        });
-
-      if (!result.error) {
-        this.cliente = result;
-        console.log(this.cliente);
-      }
-    },       
-    buscarPedidos: async function () {
-      const result = await fetch("http://localhost:3000/pedidos")
-        .then((res) => res.json())
-        .then((res) => res)
-        .catch((error) => {
-          return {
-            error: true,
-            message: error,
-          };
-        });
-      if (!result.error) {
-        this.pedidos = result;
-        console.log(this.pedidos);
-      }
-    },
+    // buscarPedidos: async function () {
+    //   const result = await fetch("http://localhost:3000/pedidos")
+    //     .then((res) => res.json())
+    //     .then((res) => res)
+    //     .catch((error) => {
+    //       return {
+    //         error: true,
+    //         message: error,
+    //       };
+    //     });
+    //   if (!result.error) {
+    //     // this.pedidos = result;
+    //     // console.log(this.pedidos);
+    //   }
+    // },
     criarPedido: async function () {
       const newPedido = {
-        codigo: this.pedido.produtoId,
-        cpf: this.pedido.clienteCPF,
-        valorUnitario: this.pedido.valorUnitario,
-        valorTotal: this.pedido.ValorTotal,
-        quantidade: this.pedido.quantidade,
+        produtoId: this.$route.params.id,
+        ValorTotal: this.valorTotal,
+        valorUnitario: this.valorUnitario,
+        quantidade: this.quantidade,
+        clienteCPF: this.cpfSelecionado,
       };
 
       const result = await fetch("http://localhost:3000/pedidos", {
@@ -103,16 +84,19 @@ export default {
         });
 
       if (!result.error) {
-        (this.codigo = this.pedido.produtoId),
-          (this.cpf = this.pedido.clienteCPF),
-          (this.valorUnitario = this.pedido.valorUnitario),
-          (this.valorTotal = this.pedido.ValorTotal),
-          (this.quantidade = this.pedido.quantidade),
-          (this.message = "Pedido cadastrado com sucesso!");
+        this.message = "Pedido cadastrado com sucesso!";
       }
     },
     isSubmit: function () {
-      this.criarPedido();
+      this.criarPedido();      
+    },
+    setCpfSelecionado: function (cpfSelecionado) {
+      this.cpfSelecionado = cpfSelecionado;      
+    },
+    setValoresSelecionados: function (valorUnitario, valorTotal, quantidade) {      this.valorUnitario = valorUnitario;
+      this.valorTotal = valorTotal;
+      this.quantidade = quantidade;
+
     },
   },
 };
