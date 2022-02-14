@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     fazerPedido: function () {
-      this.isHidden = false;
+      this.isHidden = !this.isHidden;
     },
     // buscarPedidos: async function () {
     //   const result = await fetch("http://localhost:3000/pedidos")
